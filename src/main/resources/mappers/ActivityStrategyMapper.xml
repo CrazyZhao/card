@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bright.card.repo.mapper.ActivityStrategyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bright.card.repo.entity.ActivityStrategy">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="image" property="image" />
+        <result column="type" property="type" />
+        <result column="content" property="content" />
+        <result column="status" property="status" />
+        <result column="publish_date" property="publishDate" />
+        <result column="create_time" property="createTime" />
+        <result column="modify_time" property="modifyTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, title, image, type, content, status, publish_date, create_time, modify_time
+    </sql>
+
+    <select id="listActivityStrategyPg" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_activity_strategy
+        where type = #{type,jdbcType=INTEGER} and status = 1 order by publish_date desc
+    </select>
+    <insert id="insertSelective">
+        insert into t_activity_strategy
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="title != null">title,</if>
+            <if test="image != null">image,</if>
+            <if test="type != null">type,</if>
+            <if test="content != null">content,</if>
+            <if test="status != null">status,</if>
+            <if test="publishDate != null">publish_date,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="modifyTime != null">modify_time,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=NUMERIC},</if>
+            <if test="title != null">#{title,jdbcType=VARCHAR},</if>
+            <if test="image != null">#{image,jdbcType=VARCHAR},</if>
+            <if test="type != null">#{type,jdbcType=NUMERIC},</if>
+            <if test="content != null">#{content,jdbcType=VARCHAR},</if>
+            <if test="status != null">#{status,jdbcType=NUMERIC},</if>
+            <if test="publishDate != null">#{publishDate,jdbcType=TIMESTAMP},</if>
+            <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="modifyTime != null">#{modifyTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+
+    <update id="update">
+        update
+        t_activity_strategy
+        set
+        <if test="title != null and title != ''">
+            title = #{title},
+        </if>
+        <if test="image != null and image != ''">
+            image = #{image},
+        </if>
+        <if test="type != null and type != ''">
+            type = #{type},
+        </if>
+        <if test="content != null and content != ''">
+            content = #{content},
+        </if>
+        <if test="publishDate != null and publishDate != ''">
+            publish_date = #{publishDate},
+        </if>
+        modify_time = CURRENT_TIMESTAMP()
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+
+</mapper>

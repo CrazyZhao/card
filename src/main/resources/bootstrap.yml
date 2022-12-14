@@ -1,0 +1,9 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: card
+  messages:
+    basename: resources/i18n/messages
+    cache-duration: 3600
+    encoding: utf-8

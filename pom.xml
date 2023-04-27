@@ -142,6 +142,7 @@
             <artifactId>jjwt</artifactId>
             <version>0.9.0</version>
         </dependency>
+        <!-- 二维码生成-->
         <!-- 二维码生成&识别-->
         <dependency>
             <groupId>com.google.zxing</groupId>
